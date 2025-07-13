@@ -8,12 +8,12 @@ router = APIRouter()
 
 @router.post("/", response_model=AnswerOut)
 async def create(a: AnswerCreate):
-    sentiment = sentimental_service.analyze_sentiment(a.content)
+    sentiment_value = sentimental_service.analyze_sentiment(a.content)
     data = {
         "question_id": ObjectId(a.question_id),
         "user_id": a.user_id,
         "content": a.content,
-        "sentiment": sentiment
+        "sentiment": sentiment_value
     }
     aid = await answer_model.create_answer(data)
     return {
@@ -21,5 +21,5 @@ async def create(a: AnswerCreate):
         "question_id": a.question_id,
         "user_id": a.user_id,
         "content": a.content,
-        "sentiment": sentiment
+        "sentiment": sentiment_value
     }
