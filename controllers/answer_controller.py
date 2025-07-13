@@ -2,12 +2,13 @@ from fastapi import APIRouter
 from schemas.answer_schema import AnswerCreate, AnswerOut
 from models import answer_model
 from bson import ObjectId
+from services import sentimental_service
 
 router = APIRouter()
 
 @router.post("/", response_model=AnswerOut)
 async def create(a: AnswerCreate):
-    sentiment = "positive"
+    sentiment = sentimental_service.analyze_sentiment(a.content)
     data = {
         "question_id": ObjectId(a.question_id),
         "user_id": a.user_id,
