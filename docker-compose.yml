@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  api:
+    build: .
+    container_name: quora-api
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGO_URI=mongodb+srv://saichaitanya518:bldvTzNqfDpeHpzw@cluster0.aigkqx1.mongodb.net/
+    volumes:
+      - .:/app
+    restart: always
